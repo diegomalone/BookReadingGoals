@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "393354308911",
+    "firebase_url": "https://bookreadinggoals.firebaseio.com",
+    "project_id": "bookreadinggoals",
+    "storage_bucket": "bookreadinggoals.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393354308911:android:33f8292b0f1fb8cb",
+        "android_client_info": {
+          "package_name": "com.diegomalone.brg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393354308911-tok0okgv5e9c5uk7rb6s4r4jvgovbcve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.diegomalone.brg",
+            "certificate_hash": "7b572d14e01c6bcbafffca7870d1c78770a9945f"
+          }
+        },
+        {
+          "client_id": "393354308911-1mov65cukl5a8986kog1rj9i0eq2jlbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMwlR2S0aVv4yytE6S2dP61lbZj42Oamc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393354308911-1mov65cukl5a8986kog1rj9i0eq2jlbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
