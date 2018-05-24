@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_screen_no_book_set_title">You do not have a book yet</string>
+    <string name="main_screen_no_book_set_subtitle">Add a book to start tracking your reading</string>
+
+    <string name="main_screen_pages_label">Total Pages</string>
+    <string name="main_screen_current_page_label">Current Page</string>
+    <string name="main_screen_deadline_label">Deadline</string>
+    <string name="main_screen_current_pace_label">Current Pace</string>
+    <string name="main_screen_required_pace_label">Required Pace</string>
+
+    <string name="main_screen_pace_value_pattern">%1$s pages/day</string>
+    <string name="main_screen_pace_not_available_label">Not available</string>
+
+    <string name="main_screen_update_progress_title">Update progress</string>
+    <string name="main_screen_update_progress_current_page">Current page</string>
+    <string name="main_screen_update_progress_total_pages">of %1$s</string>
+    <string name="main_screen_update_progress_already_finished">Already finished</string>
+</resources>

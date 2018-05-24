@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="big_margin">16dp</dimen>
+
+    <dimen name="text_size_default">14sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_highlight">22sp</dimen>
+    <dimen name="text_size_title">28sp</dimen>
+
+    <dimen name="guideline_top">@dimen/default_margin</dimen>
+    <dimen name="guideline_end">@dimen/default_margin</dimen>
+    <dimen name="guideline_bottom">@dimen/default_margin</dimen>
+    <dimen name="guideline_start">@dimen/default_margin</dimen>
+
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+</resources>

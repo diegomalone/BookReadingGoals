@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:animateLayoutChanges="true">
+
+        <TextView
+            android:id="@+id/bookTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_title"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="@id/guidelineTop"
+            tools:text="Origin" />
+
+        <TextView
+            android:id="@+id/authorNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_highlight"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/bookTitleTextView"
+            tools:text="Dan Brown" />
+
+        <TextView
+            android:id="@+id/pagesLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/main_screen_pages_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/authorNameTextView" />
+
+        <TextView
+            android:id="@+id/pagesValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_highlight"
+            app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
+            app:layout_constraintEnd_toStartOf="@id/currentPageLabelTextView"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@id/pagesLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/pagesLabelTextView"
+            tools:text="427" />
+
+        <TextView
+            android:id="@+id/currentPageLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:text="@string/main_screen_current_page_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
+            app:layout_constraintEnd_toStartOf="@id/currentPageValueTextView"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@id/pagesValueTextView"
+            app:layout_constraintTop_toTopOf="@id/pagesLabelTextView" />
+
+        <TextView
+            android:id="@+id/currentPageValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_highlight"
+            app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@id/currentPageLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/pagesLabelTextView"
+            tools:text="140" />
+
+        <ProgressBar
+            android:id="@+id/readingProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/main_screen_reading_progress_height"
+            android:layout_marginTop="@dimen/big_margin"
+            android:indeterminate="false"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/pagesLabelTextView" />
+
+        <TextView
+            android:id="@+id/deadlineLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/main_screen_deadline_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/readingProgressBar" />
+
+        <TextView
+            android:id="@+id/deadlineValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintBottom_toBottomOf="@id/deadlineLabelTextView"
+            app:layout_constraintStart_toEndOf="@id/deadlineLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/deadlineLabelTextView" />
+
+        <TextView
+            android:id="@+id/currentPaceLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/main_screen_current_pace_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/deadlineLabelTextView" />
+
+        <TextView
+            android:id="@+id/currentPaceValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintBottom_toBottomOf="@id/currentPaceLabelTextView"
+            app:layout_constraintStart_toEndOf="@id/currentPaceLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/currentPaceLabelTextView"
+            tools:text="@string/main_screen_pace_value_pattern" />
+
+        <TextView
+            android:id="@+id/requiredPaceLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/main_screen_required_pace_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/currentPaceLabelTextView" />
+
+        <TextView
+            android:id="@+id/requiredPaceValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintBottom_toBottomOf="@id/requiredPaceLabelTextView"
+            app:layout_constraintStart_toEndOf="@id/requiredPaceLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/requiredPaceLabelTextView"
+            tools:text="@string/main_screen_pace_value_pattern" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/updateProgressFab"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_margin="@dimen/fab_margin"
+            app:elevation="@dimen/fab_elevation"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:pressedTranslationZ="@dimen/fab_press_translation_z"
+            app:srcCompat="@drawable/ic_done_24dp" />
+
+        <include layout="@layout/include_screen_guidelines" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

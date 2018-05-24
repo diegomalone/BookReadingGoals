@@ -8,9 +8,12 @@ ext {
     supportLibraryVersion = '27.1.1'
     constraintLayoutVersion = '1.1.0'
     crashlyticsVersion = '2.9.2'
+    firebaseVersion = '15.0.0'
 
     timberVersion = '4.6.0'
     butterKnifeVersion = '8.8.1'
+    gsonVersion = '2.8.4'
+    saripaarVersion = '2.0.3'
 }
 
 buildscript {
@@ -25,7 +28,7 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.google.gms:google-services:3.1.1'
+        classpath 'com.google.gms:google-services:4.0.0'
 
         classpath 'io.fabric.tools:gradle:1.+'
     }
