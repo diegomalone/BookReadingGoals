@@ -25,6 +25,9 @@ public class Book implements Parcelable {
     @SerializedName("deadline")
     private String deadline;
 
+    @SerializedName("finishedDate")
+    private String finishedDate;
+
     @SerializedName("started")
     private boolean started = false;
 
@@ -102,6 +105,14 @@ public class Book implements Parcelable {
         this.finished = finished;
     }
 
+    public String getFinishedDate() {
+        return finishedDate;
+    }
+
+    public void setFinishedDate(String finishedDate) {
+        this.finishedDate = finishedDate;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -111,10 +122,12 @@ public class Book implements Parcelable {
                 ", title='" + title + '\'' +
                 ", startedDate='" + startedDate + '\'' +
                 ", deadline='" + deadline + '\'' +
+                ", finishedDate='" + finishedDate + '\'' +
                 ", started=" + started +
                 ", finished=" + finished +
                 '}';
     }
+
 
     @Override
     public int describeContents() {
@@ -129,6 +142,7 @@ public class Book implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.startedDate);
         dest.writeString(this.deadline);
+        dest.writeString(this.finishedDate);
         dest.writeByte(this.started ? (byte) 1 : (byte) 0);
         dest.writeByte(this.finished ? (byte) 1 : (byte) 0);
     }
@@ -140,11 +154,12 @@ public class Book implements Parcelable {
         this.title = in.readString();
         this.startedDate = in.readString();
         this.deadline = in.readString();
+        this.finishedDate = in.readString();
         this.started = in.readByte() != 0;
         this.finished = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel source) {
             return new Book(source);

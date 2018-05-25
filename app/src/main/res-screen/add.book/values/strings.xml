@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_book_title">New Book</string>
+
+    <string name="add_book_form_author_name_hint">Author</string>
+    <string name="add_book_form_book_title_hint">Book Title</string>
+    <string name="add_book_form_total_pages_hint">Number of Pages</string>
+    <string name="add_book_form_current_page_hint">Current Page</string>
+
+    <string name="add_book_form_set_deadline_checkbox">Set deadline</string>
+    <string name="add_book_form_already_started_checkbox">Already Started</string>
+    <string name="add_book_form_set_default_checkbox">Set default</string>
+
+    <string name="add_book_deadline">Deadline</string>
+
+    <string name="add_book_finish_button">Finish</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="view_book_card_total_pages_pattern">%1$s pages</string>
+    <string name="view_book_card_pages_pattern">%1$s/%2$s</string>
+
+    <string name="view_book_card_started_label">Started</string>
+    <string name="view_book_card_deadline_label">Deadline</string>
+    <string name="view_book_card_finished_label">Finished</string>
+
+    <string name="view_book_card_default_icon_content_description">Icon to show default book</string>
+</resources>

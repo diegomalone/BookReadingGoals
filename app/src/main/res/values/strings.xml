@@ -3,4 +3,14 @@
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
+    <string name="deadline_not_set">Not set</string>
+
+    <string name="drawer_open">Drawer open</string>
+    <string name="drawer_close">Drawer close</string>
+
+    <string name="menu_add_book">Add a book</string>
+    <string name="menu_reading_now">Reading Now</string>
+    <string name="menu_finished_books">Finished Books</string>
+    <string name="menu_settings">Settings</string>
 </resources>

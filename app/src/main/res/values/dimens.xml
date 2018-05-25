@@ -18,4 +18,6 @@
     <dimen name="fab_press_translation_z">6dp</dimen>
     <dimen name="fab_size">56dp</dimen>
     <dimen name="fab_margin">24dp</dimen>
+
+    <dimen name="navigation_menu_header_height">170dp</dimen>
 </resources>

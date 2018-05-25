@@ -2,6 +2,8 @@ package com.diegomalone.brg.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,7 +18,13 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
+    Toolbar toolbar;
+
+    @BindView(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.navigationView)
+    NavigationView navigationView;
 
     @BindView(R.id.authorNameTextView)
     TextView authorNameTextView;
@@ -51,7 +59,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setupToolbar(toolbar);
+        setupToolbar(toolbar, drawerLayout, navigationView);
         configureUI();
 
         showFakeData();

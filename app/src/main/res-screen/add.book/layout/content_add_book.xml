@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_add_book">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:animateLayoutChanges="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/authorNameInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:hint="@string/add_book_form_author_name_hint"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="@id/guidelineTop">
+
+            <EditText
+                android:id="@+id/authorNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/bookTitleInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:hint="@string/add_book_form_book_title_hint"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/authorNameInputLayout">
+
+            <EditText
+                android:id="@+id/bookTitleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/totalPagesInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:hint="@string/add_book_form_total_pages_hint"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/bookTitleInputLayout">
+
+            <EditText
+                android:id="@+id/totalPagesEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/setDeadlineCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/add_book_form_set_deadline_checkbox"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/totalPagesInputLayout" />
+
+        <TextView
+            android:id="@+id/deadlineLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/add_book_deadline"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/setDeadlineCheckbox"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/deadlineValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/deadlineLabelTextView"
+            app:layout_constraintStart_toEndOf="@id/deadlineLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/deadlineLabelTextView"
+            tools:text="06/15/2018"
+            tools:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/alreadyStartedCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/add_book_form_already_started_checkbox"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/deadlineLabelTextView" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/currentPageInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:hint="@string/add_book_form_current_page_hint"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/alreadyStartedCheckbox"
+            tools:visibility="visible">
+
+            <EditText
+                android:id="@+id/currentPageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/setDefaultCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/add_book_form_set_default_checkbox"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/currentPageInputLayout" />
+
+        <Button
+            android:id="@+id/finishButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/add_book_finish_button"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/setDefaultCheckbox"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <include layout="@layout/include_screen_guidelines" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
