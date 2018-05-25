@@ -16,4 +16,9 @@
     <string name="main_screen_update_progress_current_page">Current page</string>
     <string name="main_screen_update_progress_total_pages">of %1$s</string>
     <string name="main_screen_update_progress_already_finished">Already finished</string>
+
+    <string name="main_screen_update_progress_dialog_title">Update Progress</string>
+    <string name="main_screen_update_progress_dialog_current_page">Current Page</string>
+    <string name="main_screen_update_progress_dialog_page_pattern">of %1$d</string>
+    <string name="main_screen_update_progress_dialog_already_finished">Already Finished</string>
 </resources>

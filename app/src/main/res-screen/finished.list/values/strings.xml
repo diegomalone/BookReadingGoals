@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="finished_list_title">Finished books</string>
+
+    <string name="finished_list_no_book_title">You do not have finished a book yet</string>
+    <string name="finished_list_no_book_subtitle">When you finish a book, it will appear here</string>
 </resources>

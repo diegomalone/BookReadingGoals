@@ -9,6 +9,65 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_finished_list">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/emptyStateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ImageView
+            android:id="@+id/emptyStateIcon"
+            android:layout_width="@dimen/empty_state_icon_size"
+            android:layout_height="@dimen/empty_state_icon_size"
+            android:layout_marginEnd="@dimen/guideline_end"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/guideline_top"
+            android:contentDescription="@string/book_icon_content_description"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/emptyStateTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/ic_book_24dp" />
+
+        <TextView
+            android:id="@+id/emptyStateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/guideline_end"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/finished_list_no_book_title"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_highlight"
+            app:layout_constraintBottom_toTopOf="@id/emptyStateSubtitle"
+            app:layout_constraintEnd_toEndOf="@id/emptyStateIcon"
+            app:layout_constraintStart_toStartOf="@id/emptyStateIcon"
+            app:layout_constraintTop_toBottomOf="@id/emptyStateIcon"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/emptyStateSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/guideline_bottom"
+            android:layout_marginEnd="@dimen/guideline_end"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/finished_list_no_book_subtitle"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/emptyStateIcon"
+            app:layout_constraintStart_toStartOf="@id/emptyStateIcon"
+            app:layout_constraintTop_toBottomOf="@id/emptyStateTitle"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bookListRecyclerView"
         android:layout_width="match_parent"

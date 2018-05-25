@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="main_screen_reading_progress_height">20dp</dimen>
+
+    <dimen name="main_screen_update_progress_dialog">24dp</dimen>
 </resources>

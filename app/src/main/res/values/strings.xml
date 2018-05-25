@@ -13,4 +13,6 @@
     <string name="menu_reading_now">Reading Now</string>
     <string name="menu_finished_books">Finished Books</string>
     <string name="menu_settings">Settings</string>
+
+    <string name="book_icon_content_description">Book icon</string>
 </resources>

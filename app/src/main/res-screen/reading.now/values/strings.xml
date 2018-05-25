@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="reading_now_title">Reading now</string>
+
+    <string name="reading_now_no_book_title">You do not have a book yet</string>
+    <string name="reading_now_no_book_subtitle">Add a book to start tracking your reading</string>
 </resources>
