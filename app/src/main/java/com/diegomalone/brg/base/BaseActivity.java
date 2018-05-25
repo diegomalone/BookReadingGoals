@@ -13,12 +13,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.diegomalone.brg.R;
+import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.ui.finished.list.FinishedListActivity;
 import com.diegomalone.brg.ui.reading.now.ReadingNowActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public abstract class BaseActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String DATABASE_NAME = "books";
+
+    protected DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     private DrawerLayout drawerLayout;
 
@@ -92,5 +99,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
         }
 
         return false;
+    }
+
+    protected void storeBook(Book book) {
+        database.child(DATABASE_NAME).child(book.getUuid()).setValue(book);
     }
 }

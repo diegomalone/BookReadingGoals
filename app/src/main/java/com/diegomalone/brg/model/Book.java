@@ -5,7 +5,15 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.UUID;
+
 public class Book implements Parcelable {
+
+    @SerializedName("uuid")
+    private String uuid = UUID.randomUUID().toString();
+
+    @SerializedName("default")
+    private boolean isDefault = false;
 
     @SerializedName("totalPages")
     private int totalPages;
@@ -34,11 +42,31 @@ public class Book implements Parcelable {
     @SerializedName("finished")
     private boolean finished = false;
 
+    public Book() {
+    }
+
     public Book(String authorName, String title, int totalPages, int currentPage) {
         this.totalPages = totalPages;
-        this.currentPage = currentPage;
         this.authorName = authorName;
         this.title = title;
+
+        setCurrentPage(currentPage);
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 
     public int getTotalPages() {
@@ -55,6 +83,10 @@ public class Book implements Parcelable {
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+
+        if (currentPage > 0) {
+            started = true;
+        }
     }
 
     public String getAuthorName() {
@@ -116,7 +148,9 @@ public class Book implements Parcelable {
     @Override
     public String toString() {
         return "Book{" +
-                "totalPages=" + totalPages +
+                "uuid='" + uuid + '\'' +
+                ", isDefault=" + isDefault +
+                ", totalPages=" + totalPages +
                 ", currentPage=" + currentPage +
                 ", authorName='" + authorName + '\'' +
                 ", title='" + title + '\'' +
@@ -128,7 +162,6 @@ public class Book implements Parcelable {
                 '}';
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -136,6 +169,8 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.uuid);
+        dest.writeByte(this.isDefault ? (byte) 1 : (byte) 0);
         dest.writeInt(this.totalPages);
         dest.writeInt(this.currentPage);
         dest.writeString(this.authorName);
@@ -148,6 +183,8 @@ public class Book implements Parcelable {
     }
 
     protected Book(Parcel in) {
+        this.uuid = in.readString();
+        this.isDefault = in.readByte() != 0;
         this.totalPages = in.readInt();
         this.currentPage = in.readInt();
         this.authorName = in.readString();

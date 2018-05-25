@@ -1,6 +1,7 @@
 package com.diegomalone.brg.ui.main;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,9 +18,17 @@ import android.widget.TextView;
 import com.diegomalone.brg.R;
 import com.diegomalone.brg.base.BaseActivity;
 import com.diegomalone.brg.model.Book;
+import com.diegomalone.brg.ui.add.book.AddBookActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -68,6 +77,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.updateProgressFab)
     FloatingActionButton updateProgressFAB;
 
+    @BindView(R.id.addBookFab)
+    FloatingActionButton addBookFAB;
+
     private Book book;
 
     @Override
@@ -79,7 +91,7 @@ public class MainActivity extends BaseActivity {
         setupToolbar(toolbar, drawerLayout, navigationView);
         configureUI();
 
-        showFakeData();
+        loadDatabaseBooks();
     }
 
     private void configureUI() {
@@ -87,6 +99,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 openUpdateProgressDialog();
+            }
+        });
+
+        addBookFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -134,12 +154,39 @@ public class MainActivity extends BaseActivity {
         alertDialog.show();
     }
 
-    private void showFakeData() {
-        Book book = new Book("Dan Brown", "Origin", 427, 140);
-        book.setStarted(true);
-        book.setStartedDate("05/01/2018");
-        book.setDeadline("06/15/2018");
+    private void loadDatabaseBooks() {
+        database.keepSynced(true);
 
+        database.child(DATABASE_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Book> books = new ArrayList<>();
+
+                for (DataSnapshot bookDataSnapshot : dataSnapshot.getChildren()) {
+                    Book book = bookDataSnapshot.getValue(Book.class);
+                    books.add(book);
+                }
+
+                for (Book book : books) {
+                    if (book.isDefault()) {
+                        showBook(book);
+                        return;
+                    }
+                }
+
+                if (!books.isEmpty()) {
+                    showBook(books.get(books.size() - 1));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Timber.w(databaseError.toException(), "Error getting data from database");
+            }
+        });
+    }
+
+    private void showBook(Book book) {
         this.book = book;
 
         authorNameTextView.setText(book.getAuthorName());
@@ -155,5 +202,7 @@ public class MainActivity extends BaseActivity {
         String fakePace = "12";
         currentPaceTextView.setText(getString(R.string.main_screen_pace_value_pattern, fakePace));
         requiredPaceTextView.setText(getString(R.string.main_screen_pace_value_pattern, fakePace));
+
+        showEmptyState(false);
     }
 }
