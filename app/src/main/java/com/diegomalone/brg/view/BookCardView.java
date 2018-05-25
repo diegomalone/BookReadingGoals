@@ -1,10 +1,10 @@
 package com.diegomalone.brg.view;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,10 +14,13 @@ import com.diegomalone.brg.model.Book;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BookCardView extends CardView {
+public class BookCardView extends LinearLayout {
 
     @BindView(R.id.defaultIconImageView)
     ImageView defaultIconImageView;
+
+    @BindView(R.id.moreOptionsIconImageView)
+    public ImageView moreOptionsIconImageView;
 
     @BindView(R.id.bookTitleTextView)
     TextView bookTitleTextView;
@@ -68,6 +71,49 @@ public class BookCardView extends CardView {
 
         bookTitleTextView.setText(book.getTitle());
         authorNameTextView.setText(book.getAuthorName());
+
+        startedDateValueTextView.setText(book.getStartedDate());
+
+        readingProgressBar.setMax(book.getTotalPages());
+        readingProgressBar.setProgress(book.getCurrentPage());
+
+        defaultIconImageView.setVisibility(GONE);
+        moreOptionsIconImageView.setVisibility(GONE);
+
+        finishedDateLabelTextView.setVisibility(GONE);
+        finishedDateValueTextView.setVisibility(GONE);
+
+        deadlineLabelTextView.setVisibility(GONE);
+        deadlineValueTextView.setVisibility(GONE);
+
+        if (!book.isFinished()) {
+            deadlineLabelTextView.setVisibility(VISIBLE);
+            deadlineValueTextView.setVisibility(VISIBLE);
+
+            String deadlineValue = book.getDeadline();
+            if (deadlineValue == null || deadlineValue.isEmpty()) {
+                deadlineValue = getContext().getResources().getString(R.string.deadline_not_set);
+            }
+
+            deadlineValueTextView.setText(deadlineValue);
+
+            if (book.isDefault()) {
+                defaultIconImageView.setVisibility(VISIBLE);
+            } else {
+                moreOptionsIconImageView.setVisibility(VISIBLE);
+            }
+
+            pagesTextView.setText(getContext().getString(R.string.view_book_card_pages_pattern,
+                    book.getCurrentPage(), book.getTotalPages()));
+        } else {
+            finishedDateLabelTextView.setVisibility(VISIBLE);
+            finishedDateValueTextView.setVisibility(VISIBLE);
+
+            finishedDateValueTextView.setText(book.getFinishedDate());
+
+            pagesTextView.setText(getContext().getString(R.string.view_book_card_total_pages_pattern,
+                    book.getTotalPages()));
+        }
     }
 
     public Book getBook() {

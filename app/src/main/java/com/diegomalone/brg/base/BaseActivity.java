@@ -1,7 +1,9 @@
 package com.diegomalone.brg.base;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,8 +19,16 @@ import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.ui.finished.list.FinishedListActivity;
 import com.diegomalone.brg.ui.reading.now.ReadingNowActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 public abstract class BaseActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +38,13 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     private DrawerLayout drawerLayout;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        database.keepSynced(true);
+    }
 
     protected void setupToolbar(Toolbar toolbar) {
         setupToolbar(toolbar, null, null);
@@ -103,5 +120,30 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     protected void storeBook(Book book) {
         database.child(DATABASE_NAME).child(book.getUuid()).setValue(book);
+    }
+
+    protected void loadDatabaseBooks() {
+        database.child(DATABASE_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Book> books = new ArrayList<>();
+
+                for (DataSnapshot bookDataSnapshot : dataSnapshot.getChildren()) {
+                    Book book = bookDataSnapshot.getValue(Book.class);
+                    books.add(book);
+                }
+
+                bookListLoaded(books);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Timber.w(databaseError.toException(), "Error getting data from database");
+            }
+        });
+    }
+
+    protected void bookListLoaded(List<Book> bookList) {
+        Timber.d("Updated book list in an activity that does not override bookListLoaded() method");
     }
 }

@@ -1,141 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/guideline_bottom">
+    android:layout_marginBottom="@dimen/small_margin"
+    android:layout_marginEnd="@dimen/default_margin"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginTop="@dimen/small_margin">
 
-    <ImageView
-        android:id="@+id/defaultIconImageView"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/view_book_card_default_icon_content_description"
-        android:padding="@dimen/big_margin"
-        android:tint="@color/colorAccent"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_star_24dp"
-        tools:visibility="visible" />
+        android:paddingBottom="@dimen/guideline_bottom">
 
-    <TextView
-        android:id="@+id/bookTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/guideline_start"
-        android:layout_marginTop="@dimen/guideline_top"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_medium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Origin" />
+        <ImageView
+            android:id="@+id/defaultIconImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/view_book_card_default_icon_content_description"
+            android:padding="@dimen/big_margin"
+            android:tint="@color/colorAccent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_star_24dp"
+            tools:visibility="gone" />
 
-    <TextView
-        android:id="@+id/authorNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/guideline_start"
-        android:layout_marginTop="@dimen/small_margin"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bookTitleTextView"
-        tools:text="Dan Brown" />
+        <ImageView
+            android:id="@+id/moreOptionsIconImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/view_book_card_more_menu"
+            android:padding="@dimen/big_margin"
+            android:tint="@color/colorPrimaryText"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_vert_24dp"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/pagesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/guideline_start"
-        android:layout_marginTop="@dimen/default_margin"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/authorNameTextView"
-        tools:text="427 pages" />
+        <TextView
+            android:id="@+id/bookTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/guideline_top"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Origin" />
 
-    <ProgressBar
-        android:id="@+id/readingProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/main_screen_reading_progress_height"
-        android:layout_marginEnd="@dimen/guideline_end"
-        android:layout_marginStart="@dimen/default_margin"
-        android:indeterminate="false"
-        app:layout_constraintBottom_toBottomOf="@id/pagesTextView"
-        app:layout_constraintEnd_toEndOf="@id/pagesTextView"
-        app:layout_constraintStart_toEndOf="@id/pagesTextView"
-        app:layout_constraintTop_toTopOf="@id/pagesTextView" />
+        <TextView
+            android:id="@+id/authorNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/small_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bookTitleTextView"
+            tools:text="Dan Brown" />
 
-    <TextView
-        android:id="@+id/startedDateLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/guideline_start"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/view_book_card_started_label"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pagesTextView" />
+        <TextView
+            android:id="@+id/pagesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/default_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/authorNameTextView"
+            tools:text="427 pages" />
 
-    <TextView
-        android:id="@+id/startedDateValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/guideline_start"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/startedDateLabelTextView"
-        tools:text="04/14/2018" />
+        <ProgressBar
+            android:id="@+id/readingProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/main_screen_reading_progress_height"
+            android:layout_marginEnd="@dimen/guideline_end"
+            android:layout_marginStart="@dimen/default_margin"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toBottomOf="@id/pagesTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pagesTextView"
+            app:layout_constraintTop_toTopOf="@id/pagesTextView" />
 
-    <TextView
-        android:id="@+id/finishedDateLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/guideline_end"
-        android:text="@string/view_book_card_finished_label"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        app:layout_constraintBottom_toBottomOf="@id/startedDateLabelTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/startedDateLabelTextView"
-        app:layout_constraintTop_toTopOf="@id/startedDateLabelTextView" />
+        <TextView
+            android:id="@+id/startedDateLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/view_book_card_started_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pagesTextView" />
 
-    <TextView
-        android:id="@+id/finishedDateValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        app:layout_constraintStart_toStartOf="@id/finishedDateLabelTextView"
-        app:layout_constraintTop_toBottomOf="@id/finishedDateLabelTextView"
-        tools:text="06/01/2018" />
+        <TextView
+            android:id="@+id/startedDateValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/guideline_start"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/startedDateLabelTextView"
+            tools:text="04/14/2018" />
 
-    <TextView
-        android:id="@+id/deadlineLabelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/guideline_end"
-        android:text="@string/view_book_card_deadline_label"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/startedDateLabelTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/startedDateLabelTextView"
-        app:layout_constraintTop_toTopOf="@id/startedDateLabelTextView" />
+        <TextView
+            android:id="@+id/finishedDateLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/guideline_end"
+            android:text="@string/view_book_card_finished_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintBottom_toBottomOf="@id/startedDateLabelTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startedDateLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/startedDateLabelTextView" />
 
-    <TextView
-        android:id="@+id/deadlineValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_size_default"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/deadlineLabelTextView"
-        app:layout_constraintTop_toBottomOf="@id/deadlineLabelTextView" />
+        <TextView
+            android:id="@+id/finishedDateValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintStart_toStartOf="@id/finishedDateLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/finishedDateLabelTextView"
+            tools:text="06/01/2018" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/deadlineLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/guideline_end"
+            android:text="@string/view_book_card_deadline_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/startedDateLabelTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startedDateLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/startedDateLabelTextView" />
+
+        <TextView
+            android:id="@+id/deadlineValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/deadlineLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/deadlineLabelTextView" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

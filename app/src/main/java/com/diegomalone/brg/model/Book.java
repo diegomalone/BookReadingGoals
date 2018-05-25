@@ -3,8 +3,10 @@ package com.diegomalone.brg.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.diegomalone.brg.util.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Book implements Parcelable {
@@ -37,20 +39,22 @@ public class Book implements Parcelable {
     private String finishedDate;
 
     @SerializedName("started")
-    private boolean started = false;
+    private boolean started = true;
 
     @SerializedName("finished")
     private boolean finished = false;
 
     public Book() {
+        startedDate = DateUtils.getDateAsString(new Date());
     }
 
     public Book(String authorName, String title, int totalPages, int currentPage) {
+        this();
+
         this.totalPages = totalPages;
         this.authorName = authorName;
         this.title = title;
-
-        setCurrentPage(currentPage);
+        this.currentPage = currentPage;
     }
 
     public String getUuid() {

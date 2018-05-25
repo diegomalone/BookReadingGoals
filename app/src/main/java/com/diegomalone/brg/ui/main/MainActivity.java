@@ -19,16 +19,11 @@ import com.diegomalone.brg.R;
 import com.diegomalone.brg.base.BaseActivity;
 import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -154,36 +149,18 @@ public class MainActivity extends BaseActivity {
         alertDialog.show();
     }
 
-    private void loadDatabaseBooks() {
-        database.keepSynced(true);
-
-        database.child(DATABASE_NAME).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Book> books = new ArrayList<>();
-
-                for (DataSnapshot bookDataSnapshot : dataSnapshot.getChildren()) {
-                    Book book = bookDataSnapshot.getValue(Book.class);
-                    books.add(book);
-                }
-
-                for (Book book : books) {
-                    if (book.isDefault()) {
-                        showBook(book);
-                        return;
-                    }
-                }
-
-                if (!books.isEmpty()) {
-                    showBook(books.get(books.size() - 1));
-                }
+    @Override
+    protected void bookListLoaded(List<Book> bookList) {
+        for (Book book : bookList) {
+            if (book.isDefault()) {
+                showBook(book);
+                return;
             }
+        }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Timber.w(databaseError.toException(), "Error getting data from database");
-            }
-        });
+        if (!bookList.isEmpty()) {
+            showBook(bookList.get(bookList.size() - 1));
+        }
     }
 
     private void showBook(Book book) {
