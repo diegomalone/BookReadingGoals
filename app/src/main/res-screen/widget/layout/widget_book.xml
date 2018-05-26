@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widgetViewGroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/guideline_bottom"
+    android:paddingTop="@dimen/guideline_top">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/guideline_start"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_medium"
+            tools:text="Origin" />
+
+        <TextView
+            android:id="@+id/authorNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_default"
+            tools:text="Dan Brown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/guideline_end"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pagesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_default"
+            tools:text="140/427" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_weight="1">
+
+            <ProgressBar
+                android:id="@+id/readingProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/widget_progress_bar_width"
+                android:layout_height="@dimen/main_screen_reading_progress_height"
+                android:foregroundTint="@color/colorText"
+                android:indeterminate="false" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

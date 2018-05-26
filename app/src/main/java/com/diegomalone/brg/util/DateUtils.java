@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -25,6 +24,8 @@ public class DateUtils {
 
     @Nullable
     public static Date getDateFromString(String dateAsString) {
+        if (dateAsString == null) return null;
+
         try {
             return dateFormat.parse(dateAsString);
         } catch (ParseException e) {

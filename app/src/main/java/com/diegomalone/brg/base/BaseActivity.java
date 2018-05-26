@@ -19,6 +19,7 @@ import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.ui.finished.list.FinishedListActivity;
 import com.diegomalone.brg.ui.reading.now.ReadingNowActivity;
+import com.diegomalone.brg.widget.BookWidgetManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -120,6 +121,11 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     protected void storeBook(Book book) {
         database.child(DATABASE_NAME).child(book.getUuid()).setValue(book);
+
+        if (book.isDefault()) {
+            BookWidgetManager bookWidgetManager = new BookWidgetManager(this);
+            bookWidgetManager.setBook(book);
+        }
     }
 
     protected void loadDatabaseBooks() {
