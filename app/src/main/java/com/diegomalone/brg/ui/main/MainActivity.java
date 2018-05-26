@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +20,9 @@ import com.diegomalone.brg.R;
 import com.diegomalone.brg.base.BaseActivity;
 import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
+import com.diegomalone.brg.util.DateUtils;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +30,7 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 public class MainActivity extends BaseActivity {
 
@@ -38,6 +42,9 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.emptyStateContainer)
     ViewGroup emptyContainer;
+
+    @BindView(R.id.coordinatorLayout)
+    ViewGroup coordinatorLayout;
 
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
@@ -60,14 +67,23 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.readingProgressBar)
     ProgressBar readingProgressBar;
 
+    @BindView(R.id.startedDateValueTextView)
+    TextView startedDateValueTextView;
+
     @BindView(R.id.deadlineValueTextView)
     TextView deadlineValueTextView;
+
+    @BindView(R.id.currentPaceLabelTextView)
+    TextView currentPaceLabelTextView;
 
     @BindView(R.id.currentPaceValueTextView)
     TextView currentPaceTextView;
 
     @BindView(R.id.requiredPaceValueTextView)
     TextView requiredPaceTextView;
+
+    @BindView(R.id.requiredPaceLabelTextView)
+    TextView requiredPaceLabelTextView;
 
     @BindView(R.id.updateProgressFab)
     FloatingActionButton updateProgressFAB;
@@ -107,12 +123,17 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showEmptyState(boolean isEmpty) {
+        addBookFAB.setVisibility(GONE);
+        updateProgressFAB.setVisibility(GONE);
+
         if (isEmpty) {
             contentContainer.setVisibility(GONE);
             emptyContainer.setVisibility(VISIBLE);
+            addBookFAB.setVisibility(VISIBLE);
         } else {
             contentContainer.setVisibility(VISIBLE);
             emptyContainer.setVisibility(GONE);
+            updateProgressFAB.setVisibility(VISIBLE);
         }
     }
 
@@ -134,8 +155,9 @@ public class MainActivity extends BaseActivity {
                 .setTitle(R.string.main_screen_update_progress_dialog_title)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // TODO Update Page (currentPageEditText.getText())
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing, it will be overridden
                             }
                         })
                 .setNegativeButton(R.string.cancel,
@@ -145,8 +167,32 @@ public class MainActivity extends BaseActivity {
                             }
                         });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        final AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer newCurrentPage = getIntegerValue(currentPageEditText.getText().toString().trim());
+
+                if (newCurrentPage == null) {
+                    Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_required, Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (newCurrentPage > book.getTotalPages()) {
+                    Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_invalid, Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+
+                book.setCurrentPage(newCurrentPage);
+                storeBook(book);
+
+                Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_update_success, Snackbar.LENGTH_LONG).show();
+
+                alertDialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -174,12 +220,60 @@ public class MainActivity extends BaseActivity {
         readingProgressBar.setMax(book.getTotalPages());
         readingProgressBar.setProgress(book.getCurrentPage());
 
-        deadlineValueTextView.setText(book.getDeadline());
+        startedDateValueTextView.setText(book.getStartedDate());
 
-        String fakePace = "12";
-        currentPaceTextView.setText(getString(R.string.main_screen_pace_value_pattern, fakePace));
-        requiredPaceTextView.setText(getString(R.string.main_screen_pace_value_pattern, fakePace));
+        if (book.getDeadline() != null && !book.getDeadline().isEmpty()) {
+            deadlineValueTextView.setText(book.getDeadline());
+        } else {
+            deadlineValueTextView.setText(R.string.deadline_not_set);
+        }
+
+        updateReadingPace(book);
 
         showEmptyState(false);
+    }
+
+    private void updateReadingPace(Book book) {
+        Date startedDate = DateUtils.getDateFromString(book.getStartedDate());
+
+        if (startedDate != null) {
+            int totalDaysReading = DateUtils.getDaysBetweenDates(new Date(), startedDate);
+
+            if (totalDaysReading == 0) {
+                totalDaysReading = 1;
+            }
+
+            int readingPace = book.getCurrentPage() / totalDaysReading;
+
+            currentPaceLabelTextView.setVisibility(VISIBLE);
+            currentPaceTextView.setVisibility(VISIBLE);
+
+            currentPaceTextView.setText(getString(R.string.main_screen_pace_value_pattern, readingPace));
+        } else {
+            currentPaceTextView.setVisibility(GONE);
+            currentPaceLabelTextView.setVisibility(GONE);
+        }
+
+        Date deadline = DateUtils.getDateFromString(book.getDeadline());
+
+        if (deadline != null) {
+
+            int totalDaysToRead = DateUtils.getDaysBetweenDates(deadline, new Date());
+            int pagesToRead = book.getTotalPages() - book.getCurrentPage();
+
+            requiredPaceTextView.setVisibility(VISIBLE);
+            requiredPaceLabelTextView.setVisibility(VISIBLE);
+
+            if (totalDaysToRead <= 0) {
+                requiredPaceTextView.setText(getString(R.string.main_screen_required_pace_deadline_not_met));
+            } else {
+                int requiredReadingPace = pagesToRead / totalDaysToRead;
+
+                requiredPaceTextView.setText(getString(R.string.main_screen_pace_value_pattern, requiredReadingPace));
+            }
+        } else {
+            requiredPaceTextView.setVisibility(GONE);
+            requiredPaceLabelTextView.setVisibility(GONE);
+        }
     }
 }

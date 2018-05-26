@@ -5,11 +5,13 @@
 
     <string name="main_screen_pages_label">Total Pages</string>
     <string name="main_screen_current_page_label">Current Page</string>
+    <string name="main_screen_started_date_label">Started Date</string>
     <string name="main_screen_deadline_label">Deadline</string>
     <string name="main_screen_current_pace_label">Current Pace</string>
     <string name="main_screen_required_pace_label">Required Pace</string>
 
-    <string name="main_screen_pace_value_pattern">%1$s pages/day</string>
+    <string name="main_screen_pace_value_pattern">%1$d pages/day</string>
+    <string name="main_screen_required_pace_deadline_not_met">Deadline not met</string>
     <string name="main_screen_pace_not_available_label">Not available</string>
 
     <string name="main_screen_update_progress_title">Update progress</string>
@@ -21,4 +23,8 @@
     <string name="main_screen_update_progress_dialog_current_page">Current Page</string>
     <string name="main_screen_update_progress_dialog_page_pattern">of %1$d</string>
     <string name="main_screen_update_progress_dialog_already_finished">Already Finished</string>
+
+    <string name="main_screen_update_progress_dialog_current_page_required">Please type the current page</string>
+    <string name="main_screen_update_progress_dialog_current_page_invalid">Current page value invalid. Have you already finished the book?</string>
+    <string name="main_screen_update_progress_dialog_current_page_update_success">Current page updated</string>
 </resources>

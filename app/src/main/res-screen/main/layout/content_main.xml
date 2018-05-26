@@ -44,6 +44,7 @@
             android:text="@string/main_screen_pages_label"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/text_size_default"
+            app:layout_constraintEnd_toStartOf="@id/pagesValueTextView"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/authorNameTextView" />
@@ -101,15 +102,37 @@
             app:layout_constraintTop_toBottomOf="@id/pagesLabelTextView" />
 
         <TextView
-            android:id="@+id/deadlineLabelTextView"
+            android:id="@+id/startedDateLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_margin"
-            android:text="@string/main_screen_deadline_label"
+            android:text="@string/main_screen_started_date_label"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/text_size_medium"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/readingProgressBar" />
+
+        <TextView
+            android:id="@+id/startedDateValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintBottom_toBottomOf="@id/startedDateLabelTextView"
+            app:layout_constraintStart_toEndOf="@id/startedDateLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/startedDateLabelTextView" />
+
+        <TextView
+            android:id="@+id/deadlineLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/main_screen_deadline_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/startedDateLabelTextView" />
 
         <TextView
             android:id="@+id/deadlineValueTextView"
@@ -167,18 +190,6 @@
             app:layout_constraintStart_toEndOf="@id/requiredPaceLabelTextView"
             app:layout_constraintTop_toTopOf="@id/requiredPaceLabelTextView"
             tools:text="@string/main_screen_pace_value_pattern" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/updateProgressFab"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
-            android:layout_margin="@dimen/fab_margin"
-            app:elevation="@dimen/fab_elevation"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:pressedTranslationZ="@dimen/fab_press_translation_z"
-            app:srcCompat="@drawable/ic_done_24dp" />
 
         <include layout="@layout/include_screen_guidelines" />
 

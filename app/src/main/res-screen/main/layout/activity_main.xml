@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -20,7 +21,8 @@
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:visibility="gone"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:visibility="visible">
 
             <include layout="@layout/content_main" />
         </FrameLayout>
@@ -30,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/emptyStateIcon"
@@ -81,19 +84,30 @@
                 app:layout_constraintTop_toBottomOf="@id/emptyStateTitle"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/addBookFab"
-                android:layout_width="@dimen/fab_size"
-                android:layout_height="@dimen/fab_size"
-                android:layout_margin="@dimen/fab_margin"
-                app:elevation="@dimen/fab_elevation"
-                app:fabSize="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:pressedTranslationZ="@dimen/fab_press_translation_z"
-                app:srcCompat="@drawable/ic_add_24dp" />
-
         </android.support.constraint.ConstraintLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addBookFab"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:elevation="@dimen/fab_elevation"
+            app:fabSize="normal"
+            app:pressedTranslationZ="@dimen/fab_press_translation_z"
+            app:srcCompat="@drawable/ic_add_24dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/updateProgressFab"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:visibility="gone"
+            app:elevation="@dimen/fab_elevation"
+            app:fabSize="normal"
+            app:pressedTranslationZ="@dimen/fab_press_translation_z"
+            app:srcCompat="@drawable/ic_done_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 

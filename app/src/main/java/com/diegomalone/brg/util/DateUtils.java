@@ -34,10 +34,8 @@ public class DateUtils {
         return null;
     }
 
-    public static long getDaysBetweenDates(Date startDate, Date endDate) {
-        TimeUnit timeUnit = TimeUnit.DAYS;
-
-        long diffInMillis = startDate.getTime() - endDate.getTime();
-        return Math.abs(timeUnit.convert(diffInMillis, TimeUnit.MILLISECONDS));
+    public static int getDaysBetweenDates(Date endDate, Date startedDate) {
+        int diffInMillis = (int) (endDate.getTime() - startedDate.getTime());
+        return (diffInMillis / (1000 * 60 * 60 * 24)) + 1;
     }
 }

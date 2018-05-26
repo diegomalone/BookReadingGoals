@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 @SuppressWarnings("deprecation")
 public class AddBookActivity extends BaseActivity implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener {
@@ -222,13 +223,6 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
 
         String dateAsText = DateUtils.getDateAsString(calendar.getTime());
         deadlineValueTextView.setText(dateAsText);
-    }
-
-    @Nullable
-    private Integer getIntegerValue(String text) {
-        if (!text.matches("\\d+")) return null;
-
-        return Integer.parseInt(text);
     }
 
     public class CurrentPageValidationRule extends QuickRule<TextInputLayout> {
