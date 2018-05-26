@@ -19,6 +19,8 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.diegomalone.brg.analytics.AnalyticsValues.FINISHED_LIST_ACTIVITY_ID;
+import static com.diegomalone.brg.analytics.AnalyticsValues.SCREEN_OPEN;
 
 public class FinishedListActivity extends BaseActivity {
 
@@ -45,6 +47,8 @@ public class FinishedListActivity extends BaseActivity {
         configureUI();
 
         loadDatabaseBooks();
+
+        analyticsManager.logContentEvent(FINISHED_LIST_ACTIVITY_ID, SCREEN_OPEN);
     }
 
     private void configureUI() {

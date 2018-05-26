@@ -19,6 +19,7 @@ import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.ui.finished.list.FinishedListActivity;
 import com.diegomalone.brg.ui.reading.now.ReadingNowActivity;
+import com.diegomalone.brg.analytics.AnalyticsManager;
 import com.diegomalone.brg.widget.BookWidgetManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     public static final String DATABASE_NAME = "books";
 
     protected DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    protected AnalyticsManager analyticsManager;
 
     private DrawerLayout drawerLayout;
 
@@ -44,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        analyticsManager = AnalyticsManager.getInstance(this);
         database.keepSynced(true);
     }
 

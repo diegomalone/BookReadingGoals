@@ -30,6 +30,9 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.diegomalone.brg.analytics.AnalyticsValues.MAIN_ACTIVITY_ID;
+import static com.diegomalone.brg.analytics.AnalyticsValues.READING_PROGRESS_UPDATED;
+import static com.diegomalone.brg.analytics.AnalyticsValues.SCREEN_OPEN;
 import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 public class MainActivity extends BaseActivity {
@@ -103,6 +106,8 @@ public class MainActivity extends BaseActivity {
         configureUI();
 
         loadDatabaseBooks();
+
+        analyticsManager.logContentEvent(MAIN_ACTIVITY_ID, SCREEN_OPEN);
     }
 
     private void configureUI() {
@@ -188,6 +193,7 @@ public class MainActivity extends BaseActivity {
                 book.setCurrentPage(newCurrentPage);
                 storeBook(book);
 
+                analyticsManager.logContentEvent(MAIN_ACTIVITY_ID, READING_PROGRESS_UPDATED);
                 Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_update_success, Snackbar.LENGTH_LONG).show();
 
                 alertDialog.dismiss();

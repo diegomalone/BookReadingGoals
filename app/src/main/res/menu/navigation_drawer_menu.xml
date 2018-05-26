@@ -7,14 +7,14 @@
         android:title="@string/menu_add_book" />
 
     <item
-        android:id="@+id/menuFinishedBooks"
-        android:icon="@drawable/ic_check_circle_24dp"
-        android:title="@string/menu_finished_books" />
-
-    <item
         android:id="@+id/menuReadingNow"
         android:icon="@drawable/ic_library_books_24dp"
         android:title="@string/menu_reading_now" />
+
+    <item
+        android:id="@+id/menuFinishedBooks"
+        android:icon="@drawable/ic_check_circle_24dp"
+        android:title="@string/menu_finished_books" />
 
     <item
         android:id="@+id/menuSettings"

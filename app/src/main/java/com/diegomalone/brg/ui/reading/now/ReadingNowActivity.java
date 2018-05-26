@@ -20,6 +20,9 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.diegomalone.brg.analytics.AnalyticsValues.READING_NOW_ACTIVITY_ID;
+import static com.diegomalone.brg.analytics.AnalyticsValues.SCREEN_OPEN;
+import static com.diegomalone.brg.analytics.AnalyticsValues.SET_DEFAULT;
 
 public class ReadingNowActivity extends BaseActivity {
 
@@ -46,6 +49,8 @@ public class ReadingNowActivity extends BaseActivity {
         configureUI();
 
         loadDatabaseBooks();
+
+        analyticsManager.logContentEvent(READING_NOW_ACTIVITY_ID, SCREEN_OPEN);
     }
 
     private void configureUI() {
@@ -64,8 +69,11 @@ public class ReadingNowActivity extends BaseActivity {
                 for (Book book : bookList) {
                     storeBook(book);
                 }
+
+                analyticsManager.logContentEvent(READING_NOW_ACTIVITY_ID, SET_DEFAULT);
             }
         });
+
         recyclerView.setAdapter(bookListAdapter);
     }
 

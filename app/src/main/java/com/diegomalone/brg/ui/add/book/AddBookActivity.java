@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diegomalone.brg.R;
 import com.diegomalone.brg.base.BaseActivity;
@@ -34,6 +34,9 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.diegomalone.brg.analytics.AnalyticsValues.ADD_BOOK_ACTIVITY_ID;
+import static com.diegomalone.brg.analytics.AnalyticsValues.BOOK_CREATED;
+import static com.diegomalone.brg.analytics.AnalyticsValues.SCREEN_OPEN;
 import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 @SuppressWarnings("deprecation")
@@ -99,6 +102,8 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
         configureUI();
 
         setupValidator();
+
+        analyticsManager.logContentEvent(ADD_BOOK_ACTIVITY_ID, SCREEN_OPEN);
     }
 
     private void setupValidator() {
@@ -197,7 +202,9 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
 
         storeBook(createdBook);
 
-        // TODO Show success message
+        analyticsManager.logContentEvent(ADD_BOOK_ACTIVITY_ID, BOOK_CREATED);
+
+        Toast.makeText(this, R.string.add_book_page_update_successfully, Toast.LENGTH_LONG).show();
         finish();
     }
 
