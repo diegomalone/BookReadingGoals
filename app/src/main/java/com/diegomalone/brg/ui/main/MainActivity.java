@@ -1,7 +1,10 @@
 package com.diegomalone.brg.ui.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import com.diegomalone.brg.R;
 import com.diegomalone.brg.base.BaseActivity;
 import com.diegomalone.brg.model.Book;
+import com.diegomalone.brg.service.UpdateProgressIntentService;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.util.DateUtils;
 
@@ -27,12 +31,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.diegomalone.brg.analytics.AnalyticsValues.MAIN_ACTIVITY_ID;
 import static com.diegomalone.brg.analytics.AnalyticsValues.READING_PROGRESS_UPDATED;
 import static com.diegomalone.brg.analytics.AnalyticsValues.SCREEN_OPEN;
+import static com.diegomalone.brg.service.UpdateProgressIntentService.REQUEST_STATUS_ERROR;
+import static com.diegomalone.brg.service.UpdateProgressIntentService.REQUEST_STATUS_INTERNET_ERROR;
+import static com.diegomalone.brg.service.UpdateProgressIntentService.REQUEST_STATUS_SUCCESS;
 import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 public class MainActivity extends BaseActivity {
@@ -108,6 +116,21 @@ public class MainActivity extends BaseActivity {
         loadDatabaseBooks();
 
         analyticsManager.logContentEvent(MAIN_ACTIVITY_ID, SCREEN_OPEN);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UpdateProgressIntentService.BROADCAST_ACTION);
+
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private void configureUI() {
@@ -194,7 +217,8 @@ public class MainActivity extends BaseActivity {
                 storeBook(book);
 
                 analyticsManager.logContentEvent(MAIN_ACTIVITY_ID, READING_PROGRESS_UPDATED);
-                Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_update_success, Snackbar.LENGTH_LONG).show();
+
+                sendUpdatedProgress(book);
 
                 alertDialog.dismiss();
             }
@@ -282,4 +306,50 @@ public class MainActivity extends BaseActivity {
             requiredPaceLabelTextView.setVisibility(GONE);
         }
     }
+
+    private void sendUpdatedProgress(Book book) {
+        Intent updateProgressIntent = new Intent(this, UpdateProgressIntentService.class);
+        updateProgressIntent.putExtra(UpdateProgressIntentService.INTENT_DATA_BOOK, book);
+
+        startService(updateProgressIntent);
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int status = intent.getIntExtra(UpdateProgressIntentService.REQUEST_STATUS, -1);
+
+            Timber.d("Broadcast received %s", status);
+
+            String errorMessage;
+
+            switch (status) {
+                case REQUEST_STATUS_SUCCESS: {
+                    Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_update_success, Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                case REQUEST_STATUS_INTERNET_ERROR: {
+                    errorMessage = getString(R.string.main_screen_update_progress_send_update_error_internet);
+                    break;
+                }
+                case REQUEST_STATUS_ERROR: {
+                    errorMessage = getString(R.string.main_screen_update_progress_send_update_error_server);
+                    break;
+                }
+                default: {
+                    errorMessage = getString(R.string.error_unexpected);
+                }
+            }
+
+            Snackbar snackbar = Snackbar.make(coordinatorLayout, errorMessage, Snackbar.LENGTH_LONG);
+            snackbar.setAction(R.string.try_again, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendUpdatedProgress(book);
+                }
+            });
+            snackbar.show();
+        }
+    };
 }

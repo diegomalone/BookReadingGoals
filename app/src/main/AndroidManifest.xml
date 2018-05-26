@@ -32,6 +32,10 @@
             android:name=".ui.finished.list.FinishedListActivity"
             android:label="@string/finished_list_title" />
 
+        <service
+            android:name=".service.UpdateProgressIntentService"
+            android:exported="false" />
+
         <receiver android:name=".widget.BookWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

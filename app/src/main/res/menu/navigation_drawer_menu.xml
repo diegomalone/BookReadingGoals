@@ -15,9 +15,4 @@
         android:id="@+id/menuFinishedBooks"
         android:icon="@drawable/ic_check_circle_24dp"
         android:title="@string/menu_finished_books" />
-
-    <item
-        android:id="@+id/menuSettings"
-        android:icon="@drawable/ic_settings_24dp"
-        android:title="@string/menu_settings" />
 </menu>

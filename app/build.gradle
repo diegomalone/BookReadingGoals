@@ -31,13 +31,20 @@ android {
     }
 
     buildTypes {
+        def STRING = "String"
+        def API_URL = "API_URL"
+
         release {
+            buildConfigField STRING, API_URL, "\"http://httpbin.org\""
+
             minifyEnabled false
 
             signingConfig signingConfigs.release
         }
 
         debug {
+            buildConfigField STRING, API_URL, "\"http://httpbin.org\""
+
             debuggable true
             signingConfig signingConfigs.debug
         }
@@ -79,4 +86,15 @@ dependencies {
     implementation "com.google.code.gson:gson:$gsonVersion"
 
     implementation "com.mobsandgeeks:android-saripaar:$saripaarVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 }
