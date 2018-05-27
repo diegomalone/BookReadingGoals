@@ -143,8 +143,11 @@ public class MainActivity extends BaseActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(BOOK_EXTRA, getCurrentBook());
-        outState.putInt(DIALOG_OPEN_EXTRA,
-                updateReadingProgressAlertDialog.isShowing() ? DIALOG_OPEN_EXTRA_TRUE : DIALOG_OPEN_EXTRA_FALSE);
+
+        if (updateReadingProgressAlertDialog != null) {
+            outState.putInt(DIALOG_OPEN_EXTRA,
+                    updateReadingProgressAlertDialog.isShowing() ? DIALOG_OPEN_EXTRA_TRUE : DIALOG_OPEN_EXTRA_FALSE);
+        }
 
         if (updateReadingProgressDialogCurrentPageEditText != null) {
             outState.putString(DIALOG_CURRENT_PAGE_EXTRA, updateReadingProgressDialogCurrentPageEditText.getText().toString().trim());
@@ -254,7 +257,9 @@ public class MainActivity extends BaseActivity {
 
                 sendUpdatedProgress(book);
 
-                updateReadingProgressAlertDialog.dismiss();
+                if (updateReadingProgressDialogCurrentPageEditText != null) {
+                    updateReadingProgressAlertDialog.dismiss();
+                }
             }
         });
 
@@ -269,7 +274,9 @@ public class MainActivity extends BaseActivity {
                 storeBook(book);
                 Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_book_finished_success, Snackbar.LENGTH_LONG).show();
 
-                updateReadingProgressAlertDialog.dismiss();
+                if (updateReadingProgressDialogCurrentPageEditText != null) {
+                    updateReadingProgressAlertDialog.dismiss();
+                }
             }
         });
     }
