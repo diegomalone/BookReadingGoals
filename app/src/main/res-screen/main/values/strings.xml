@@ -32,4 +32,7 @@
     <string name="main_screen_update_progress_send_update_error_internet">An internet error has occurred while sending page update.</string>
     <string name="main_screen_update_progress_send_update_error_server">A server error has occurred while sending page update.</string>
     <string name="main_screen_update_progress_send_update_error_unexpected">An unexpected error has occurred while sending page update.</string>
+
+    <string name="main_screen_add_book_fab_content_description">Add book button</string>
+    <string name="main_screen_update_reading_progress_fab_content_description">Update reading progress button</string>
 </resources>

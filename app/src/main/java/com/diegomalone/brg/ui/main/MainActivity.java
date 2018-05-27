@@ -32,7 +32,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -45,6 +44,13 @@ import static com.diegomalone.brg.service.UpdateProgressIntentService.REQUEST_ST
 import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 public class MainActivity extends BaseActivity {
+
+    public static final String BOOK_EXTRA = "book";
+    public static final String DIALOG_OPEN_EXTRA = "dialogOpen";
+    public static final String DIALOG_CURRENT_PAGE_EXTRA = "dialogCurrentPage";
+
+    public static final int DIALOG_OPEN_EXTRA_TRUE = 1;
+    public static final int DIALOG_OPEN_EXTRA_FALSE = 2;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -104,6 +110,8 @@ public class MainActivity extends BaseActivity {
     FloatingActionButton addBookFAB;
 
     private Book book;
+    private AlertDialog updateReadingProgressAlertDialog;
+    private EditText updateReadingProgressDialogCurrentPageEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +122,33 @@ public class MainActivity extends BaseActivity {
         setupToolbar(toolbar, drawerLayout, navigationView);
         configureUI();
 
+        if (savedInstanceState != null) {
+            setCurrentBook((Book) savedInstanceState.getParcelable(BOOK_EXTRA));
+
+            if (savedInstanceState.getInt(DIALOG_OPEN_EXTRA) == DIALOG_OPEN_EXTRA_TRUE) {
+                openUpdateProgressDialog();
+
+                if (updateReadingProgressDialogCurrentPageEditText != null) {
+                    updateReadingProgressDialogCurrentPageEditText.setText(savedInstanceState.getString(DIALOG_CURRENT_PAGE_EXTRA));
+                }
+            }
+        }
+
         loadDatabaseBooks();
 
         analyticsManager.logContentEvent(MAIN_ACTIVITY_ID, SCREEN_OPEN);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BOOK_EXTRA, getCurrentBook());
+        outState.putInt(DIALOG_OPEN_EXTRA,
+                updateReadingProgressAlertDialog.isShowing() ? DIALOG_OPEN_EXTRA_TRUE : DIALOG_OPEN_EXTRA_FALSE);
+
+        if (updateReadingProgressDialogCurrentPageEditText != null) {
+            outState.putString(DIALOG_CURRENT_PAGE_EXTRA, updateReadingProgressDialogCurrentPageEditText.getText().toString().trim());
+        }
     }
 
     @Override
@@ -173,12 +205,12 @@ public class MainActivity extends BaseActivity {
 
         alertDialogBuilder.setView(updateProgressDialogView);
 
-        final EditText currentPageEditText = updateProgressDialogView.findViewById(R.id.currentPageEditText);
+        updateReadingProgressDialogCurrentPageEditText = updateProgressDialogView.findViewById(R.id.currentPageEditText);
         final TextView totalPagesTextView = updateProgressDialogView.findViewById(R.id.totalPagesTextView);
         final TextView alreadyFinishedTextView = updateProgressDialogView.findViewById(R.id.alreadyFinishedActionTextView);
 
         totalPagesTextView.setText(getString(R.string.main_screen_update_progress_dialog_page_pattern, book.getTotalPages()));
-        currentPageEditText.setText(String.valueOf(book.getCurrentPage()));
+        updateReadingProgressDialogCurrentPageEditText.setText(String.valueOf(book.getCurrentPage()));
 
         alertDialogBuilder
                 .setCancelable(true)
@@ -197,13 +229,13 @@ public class MainActivity extends BaseActivity {
                             }
                         });
 
-        final AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        updateReadingProgressAlertDialog = alertDialogBuilder.create();
+        updateReadingProgressAlertDialog.show();
 
-        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        updateReadingProgressAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer newCurrentPage = getIntegerValue(currentPageEditText.getText().toString().trim());
+                Integer newCurrentPage = getIntegerValue(updateReadingProgressDialogCurrentPageEditText.getText().toString().trim());
 
                 if (newCurrentPage == null) {
                     Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_current_page_required, Snackbar.LENGTH_LONG).show();
@@ -222,7 +254,7 @@ public class MainActivity extends BaseActivity {
 
                 sendUpdatedProgress(book);
 
-                alertDialog.dismiss();
+                updateReadingProgressAlertDialog.dismiss();
             }
         });
 
@@ -237,7 +269,7 @@ public class MainActivity extends BaseActivity {
                 storeBook(book);
                 Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_book_finished_success, Snackbar.LENGTH_LONG).show();
 
-                alertDialog.dismiss();
+                updateReadingProgressAlertDialog.dismiss();
             }
         });
     }
@@ -246,7 +278,7 @@ public class MainActivity extends BaseActivity {
     protected void bookListLoaded(List<Book> bookList) {
         for (Book book : bookList) {
             if (book.isDefault() && !book.isFinished()) {
-                showBook(book);
+                setCurrentBook(book);
                 return;
             }
         }
@@ -267,8 +299,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showBook(Book book) {
-        this.book = book;
-
         authorNameTextView.setText(book.getAuthorName());
         bookTitleTextView.setText(book.getTitle());
         currentPageValueTextView.setText(String.valueOf(book.getCurrentPage()));
@@ -341,13 +371,20 @@ public class MainActivity extends BaseActivity {
         startService(updateProgressIntent);
     }
 
+    private Book getCurrentBook() {
+        return book;
+    }
+
+    private void setCurrentBook(Book book) {
+        this.book = book;
+        showBook(book);
+    }
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             int status = intent.getIntExtra(UpdateProgressIntentService.REQUEST_STATUS, -1);
-
-            Timber.d("Broadcast received %s", status);
 
             String errorMessage;
 
@@ -373,7 +410,7 @@ public class MainActivity extends BaseActivity {
             snackbar.setAction(R.string.try_again, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sendUpdatedProgress(book);
+                    sendUpdatedProgress(getCurrentBook());
                 }
             });
             snackbar.show();

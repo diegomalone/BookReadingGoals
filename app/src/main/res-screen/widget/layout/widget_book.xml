@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
+    android:baselineAligned="false"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/guideline_bottom"
     android:paddingTop="@dimen/guideline_top">

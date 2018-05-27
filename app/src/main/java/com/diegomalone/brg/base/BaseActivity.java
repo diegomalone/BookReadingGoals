@@ -12,14 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.diegomalone.brg.R;
+import com.diegomalone.brg.analytics.AnalyticsManager;
 import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.ui.finished.list.FinishedListActivity;
 import com.diegomalone.brg.ui.reading.now.ReadingNowActivity;
-import com.diegomalone.brg.analytics.AnalyticsManager;
 import com.diegomalone.brg.widget.BookWidgetManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,16 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
         if (drawerLayout != null && navigationView != null) {
             this.drawerLayout = drawerLayout;
 
-            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-
-                public void onDrawerClosed(View view) {
-                    super.onDrawerClosed(view);
-                }
-
-                public void onDrawerOpened(View drawerView) {
-                    super.onDrawerOpened(drawerView);
-                }
-            };
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();

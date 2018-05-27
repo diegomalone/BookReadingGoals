@@ -24,7 +24,6 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.adapter.ViewDataAdapter;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.exception.ConversionException;
 
 import java.util.Calendar;
 import java.util.List;
@@ -41,6 +40,8 @@ import static com.diegomalone.brg.util.NumberUtils.getIntegerValue;
 
 @SuppressWarnings("deprecation")
 public class AddBookActivity extends BaseActivity implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener {
+
+    public static final String DEADLINE_VALUE = "deadlineValue";
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
@@ -91,6 +92,7 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
     Button finishButton;
 
     private Validator validator;
+    private DialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,18 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
 
         setupValidator();
 
+        if (savedInstanceState != null) {
+            String deadlineValue = savedInstanceState.getString(DEADLINE_VALUE);
+            deadlineValueTextView.setText(deadlineValue);
+        }
+
         analyticsManager.logContentEvent(ADD_BOOK_ACTIVITY_ID, SCREEN_OPEN);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(DEADLINE_VALUE, deadlineValueTextView.getText().toString().trim());
     }
 
     private void setupValidator() {
@@ -113,7 +126,7 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
         validator.registerAdapter(TextInputLayout.class,
                 new ViewDataAdapter<TextInputLayout, String>() {
                     @Override
-                    public String getData(TextInputLayout textInputLayout) throws ConversionException {
+                    public String getData(TextInputLayout textInputLayout) {
                         EditText editText = textInputLayout.getEditText();
                         return editText != null ? editText.getText().toString() : null;
                     }
@@ -142,7 +155,7 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
                 deadlineLabelTextView.setVisibility(visibility);
                 deadlineValueTextView.setVisibility(visibility);
 
-                if (isChecked) {
+                if (buttonView.isPressed() && isChecked) {
                     showDatePickerDialog();
                 }
             }
@@ -175,8 +188,7 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
     }
 
     private void showDatePickerDialog() {
-        DialogFragment newFragment = new DatePickerDialogFragment();
-        newFragment.show(getFragmentManager(), "DATE_PICKER");
+        datePickerDialogFragment.show(getFragmentManager(), "DATE_PICKER");
     }
 
     @Override

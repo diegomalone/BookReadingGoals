@@ -60,19 +60,4 @@ public class BookWidgetProvider extends AppWidgetProvider {
             updateAppWidget(context, appWidgetManager, appWidgetId, bookWidgetManager.getBook());
         }
     }
-
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        super.onDeleted(context, appWidgetIds);
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        super.onEnabled(context);
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        super.onDisabled(context);
-    }
 }

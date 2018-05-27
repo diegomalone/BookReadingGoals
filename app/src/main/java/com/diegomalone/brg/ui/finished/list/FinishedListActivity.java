@@ -89,7 +89,7 @@ public class FinishedListActivity extends BaseActivity {
         this.bookList.addAll(bookList);
 
         if (bookListAdapter != null) {
-            bookListAdapter.updateList(bookList);
+            bookListAdapter.updateList(this.bookList);
             bookListAdapter.notifyDataSetChanged();
         }
 
