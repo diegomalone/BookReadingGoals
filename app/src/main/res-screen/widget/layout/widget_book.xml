@@ -19,9 +19,8 @@
         <TextView
             android:id="@+id/bookTitleTextView"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_margin"
-            android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -32,8 +31,7 @@
         <TextView
             android:id="@+id/authorNameTextView"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -53,18 +51,17 @@
         <TextView
             android:id="@+id/pagesTextView"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/default_margin"
             android:textColor="@color/colorText"
             android:textSize="@dimen/text_size_default"
             tools:text="140/427" />
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="end"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
 
             <ProgressBar
                 android:id="@+id/readingProgressBar"

@@ -66,6 +66,7 @@ public class ReadingNowActivity extends BaseActivity {
 
                 bookList.get(position).setDefault(true);
 
+                storeBook(bookList.get(position));
                 for (Book book : bookList) {
                     storeBook(book);
                 }

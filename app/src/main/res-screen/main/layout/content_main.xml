@@ -37,32 +37,6 @@
             tools:text="Dan Brown" />
 
         <TextView
-            android:id="@+id/pagesLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_margin"
-            android:text="@string/main_screen_pages_label"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_default"
-            app:layout_constraintEnd_toStartOf="@id/pagesValueTextView"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/authorNameTextView" />
-
-        <TextView
-            android:id="@+id/pagesValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_highlight"
-            app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
-            app:layout_constraintEnd_toStartOf="@id/currentPageLabelTextView"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/pagesLabelTextView"
-            app:layout_constraintTop_toTopOf="@id/pagesLabelTextView"
-            tools:text="427" />
-
-        <TextView
             android:id="@+id/currentPageLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,8 +46,8 @@
             android:textSize="@dimen/text_size_default"
             app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
             app:layout_constraintEnd_toStartOf="@id/currentPageValueTextView"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/pagesValueTextView"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toTopOf="@id/pagesLabelTextView" />
 
         <TextView
@@ -84,11 +58,37 @@
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/text_size_highlight"
             app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
-            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintEnd_toStartOf="@id/pagesLabelTextView"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/currentPageLabelTextView"
             app:layout_constraintTop_toTopOf="@id/pagesLabelTextView"
             tools:text="140" />
+
+        <TextView
+            android:id="@+id/pagesLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/main_screen_pages_label"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_default"
+            app:layout_constraintEnd_toStartOf="@id/pagesValueTextView"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/currentPageValueTextView"
+            app:layout_constraintTop_toBottomOf="@id/authorNameTextView" />
+
+        <TextView
+            android:id="@+id/pagesValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_size_highlight"
+            app:layout_constraintBottom_toBottomOf="@id/pagesLabelTextView"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/pagesLabelTextView"
+            app:layout_constraintTop_toTopOf="@id/pagesLabelTextView"
+            tools:text="427" />
 
         <ProgressBar
             android:id="@+id/readingProgressBar"

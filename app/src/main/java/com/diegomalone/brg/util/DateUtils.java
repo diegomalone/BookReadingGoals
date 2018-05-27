@@ -36,7 +36,7 @@ public class DateUtils {
     }
 
     public static int getDaysBetweenDates(Date endDate, Date startedDate) {
-        int diffInMillis = (int) (endDate.getTime() - startedDate.getTime());
-        return (diffInMillis / (1000 * 60 * 60 * 24)) + 1;
+        long diffInMillis = (endDate.getTime() - startedDate.getTime());
+        return (int) (diffInMillis / (1000 * 60 * 60 * 24)) + 1;
     }
 }

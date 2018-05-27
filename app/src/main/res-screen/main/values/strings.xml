@@ -27,6 +27,7 @@
     <string name="main_screen_update_progress_dialog_current_page_required">Please type the current page</string>
     <string name="main_screen_update_progress_dialog_current_page_invalid">Current page value invalid. Have you already finished the book?</string>
     <string name="main_screen_update_progress_dialog_current_page_update_success">Current page updated</string>
+    <string name="main_screen_update_progress_dialog_book_finished_success">Book finished \\o/ Congratulations</string>
 
     <string name="main_screen_update_progress_send_update_error_internet">An internet error has occurred while sending page update.</string>
     <string name="main_screen_update_progress_send_update_error_server">A server error has occurred while sending page update.</string>

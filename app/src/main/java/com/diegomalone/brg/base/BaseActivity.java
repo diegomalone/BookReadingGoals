@@ -113,10 +113,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
                 startActivity(intent);
                 break;
             }
-            case R.id.menuSettings: {
-                // TODO
-                break;
-            }
         }
 
         return false;

@@ -200,6 +200,8 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
             createdBook.setDeadline(deadlineValueTextView.getText().toString().trim());
         }
 
+        createdBook.setDefault(setDefaultCheckBox.isChecked());
+
         storeBook(createdBook);
 
         analyticsManager.logContentEvent(ADD_BOOK_ACTIVITY_ID, BOOK_CREATED);

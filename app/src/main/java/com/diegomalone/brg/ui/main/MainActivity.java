@@ -25,6 +25,7 @@ import com.diegomalone.brg.model.Book;
 import com.diegomalone.brg.service.UpdateProgressIntentService;
 import com.diegomalone.brg.ui.add.book.AddBookActivity;
 import com.diegomalone.brg.util.DateUtils;
+import com.diegomalone.brg.widget.BookWidgetManager;
 
 import java.util.Date;
 import java.util.List;
@@ -174,6 +175,7 @@ public class MainActivity extends BaseActivity {
 
         final EditText currentPageEditText = updateProgressDialogView.findViewById(R.id.currentPageEditText);
         final TextView totalPagesTextView = updateProgressDialogView.findViewById(R.id.totalPagesTextView);
+        final TextView alreadyFinishedTextView = updateProgressDialogView.findViewById(R.id.alreadyFinishedActionTextView);
 
         totalPagesTextView.setText(getString(R.string.main_screen_update_progress_dialog_page_pattern, book.getTotalPages()));
         currentPageEditText.setText(String.valueOf(book.getCurrentPage()));
@@ -223,20 +225,45 @@ public class MainActivity extends BaseActivity {
                 alertDialog.dismiss();
             }
         });
+
+        alreadyFinishedTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                book.setCurrentPage(book.getTotalPages());
+                book.setFinished(true);
+                book.setDefault(false);
+                book.setFinishedDate(DateUtils.getDateAsString(new Date()));
+
+                storeBook(book);
+                Snackbar.make(coordinatorLayout, R.string.main_screen_update_progress_dialog_book_finished_success, Snackbar.LENGTH_LONG).show();
+
+                alertDialog.dismiss();
+            }
+        });
     }
 
     @Override
     protected void bookListLoaded(List<Book> bookList) {
         for (Book book : bookList) {
-            if (book.isDefault()) {
+            if (book.isDefault() && !book.isFinished()) {
                 showBook(book);
                 return;
             }
         }
 
-        if (!bookList.isEmpty()) {
-            showBook(bookList.get(bookList.size() - 1));
+        // No default book, set one
+        for (Book book : bookList) {
+            if (!book.isFinished()) {
+                book.setDefault(true);
+                storeBook(book);
+                return;
+            }
         }
+
+        // No book reading now
+        showEmptyState(true);
+        BookWidgetManager bookWidgetManager = new BookWidgetManager(this);
+        bookWidgetManager.setBook(null);
     }
 
     private void showBook(Book book) {
