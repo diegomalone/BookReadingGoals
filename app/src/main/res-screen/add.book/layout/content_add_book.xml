@@ -162,6 +162,36 @@
             app:layout_constraintTop_toBottomOf="@id/setDefaultCheckbox"
             app:layout_constraintVertical_bias="1.0" />
 
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/authorNameEditText"
+                android:text="@string/add_book_form_author_name_accessibility_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/bookTitleEditText"
+                android:text="@string/add_book_form_book_title_accessibility_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/totalPagesEditText"
+                android:text="@string/add_book_form_total_pages_accessibility_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/currentPageEditText"
+                android:text="@string/add_book_form_current_page_accessibility_label" />
+        </FrameLayout>
+
         <include layout="@layout/include_screen_guidelines" />
 
     </android.support.constraint.ConstraintLayout>

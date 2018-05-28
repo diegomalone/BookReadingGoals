@@ -306,6 +306,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showBook(Book book) {
+        if (book == null) {
+            showEmptyState(true);
+            return;
+        }
+
         authorNameTextView.setText(book.getAuthorName());
         bookTitleTextView.setText(book.getTitle());
         currentPageValueTextView.setText(String.valueOf(book.getCurrentPage()));
